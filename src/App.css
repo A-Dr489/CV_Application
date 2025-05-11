@@ -46,15 +46,49 @@ body {
 .formDiv {
     flex: 1;
     max-width: 900px;
-    height: 100vh;
+    height: 120vh;
     background-color: rgba(0, 0, 0, 0.57);
     box-shadow: 0px 0px 15px black;
     z-index: 2;
 }
+
+/* BasicForm */
 
 .daddy-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     color: rgb(207, 207, 207);
+    gap: 20px;
 }
+
+.personal-info {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    grid-template-rows: repeat(3, 225px);
+    width: 90%;
+    column-gap: 20px;
+}
+
+.inputs {
+    font-size: 1.3em;
+    padding: 5px;
+    background-color: rgba(15, 37, 58, 0.634);
+    color: white;
+    font-family: VT323;
+    border: none;
+}
+
+.inputs:focus {
+    animation: inputFocus 2.5s infinite alternate;
+}
+
+@keyframes inputFocus {
+    0% {
+        background-color: black;
+    } 100% {
+        background-color: rgba(15, 37, 58, 0.634);
+    }
+}
+
+/* BasicForm */
