@@ -12,7 +12,7 @@ body {
 }
 
 .coolHover {
-    position: absolute;
+    position: fixed;
     width: 250px;
     height: 250px;
     border-radius: 20%;
@@ -78,7 +78,12 @@ body {
     background-color: rgba(15, 37, 58, 0.634);
     color: white;
     font-family: VT323;
+    transition: 0.4s ease;
     border: none;
+}
+
+.inputs:hover {
+    box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.388);
 }
 
 .inputs:focus {
@@ -94,6 +99,7 @@ body {
     background-color: rgba(0, 0, 0, 0.57);
     border: 1px solid white;
     transition: 0.5s ease;
+    cursor: pointer;
 }
 
 .submitBtn:hover {
@@ -144,6 +150,7 @@ body {
     border: 1px solid white;
     transition: 0.5s ease;
     padding: 5px 0px 5px 0px;
+    cursor: pointer;
 }
 
 .addMoreBtn:hover {
@@ -151,4 +158,45 @@ body {
     color: black;
 }
 
+.removeBtn {
+    flex: 1;
+    margin-top: 30px;
+    font-size: 1.5em;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.57);
+    border: 1px solid red;
+    transition: 0.5s ease;
+    padding: 5px 0px 5px 0px;
+    cursor: pointer;
+}
+
+.removeBtn:hover {
+    background-color: red;
+    border: 1px solid red;
+}
+
 /* Skills */
+
+/* Work Experience */
+
+.workForm {
+    display: flex;
+    flex-direction: column;
+    width: 826px;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    background-color: rgba(0, 0, 0, 0.57);
+    box-shadow: 0px 0px 15px black;
+    z-index: 2;
+}
+
+.work-xp {
+    display: grid;
+    width: 90%;
+    grid-template-columns: repeat(4, minmax(165px, 1fr));
+    grid-template-rows: repeat(3, 80px);
+    margin-top: 10px;
+    column-gap: 20px;
+}
+
+/* Work Experience */
