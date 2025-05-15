@@ -3,11 +3,13 @@ import { CoolHover } from './coolHover.jsx'
 import { BasicForm } from './basicForm.jsx';
 import { Work } from './Work.jsx';
 import { Skills } from './Skills.jsx';
+import { Education } from './Education.jsx';
 import './App.css'
 
 function App() {
   const [position, setPosition] = useState({x: 0, y: 0});
   const [skills, setSkills] = useState([]);
+  const [work, setWork] = useState([]);
 
   function addSkills() {
     setSkills((prev) => [...prev, prev.length + 1]);
@@ -16,6 +18,16 @@ function App() {
   function removeSkills() {
     if(skills.length !== 0) {
       setSkills((prevSkills) => prevSkills.slice(0, -1));
+    }
+  }
+
+  function addWork() {
+    setWork((prev) => [...prev, prev.length + 1]);
+  }
+
+  function removeWork() {
+    if(work.length !== 0) {
+      setWork((prev) => prev.slice(0, -1));
     }
   }
 
@@ -53,8 +65,26 @@ function App() {
                   <h1 style={{fontSize: 3 + "em", textAlign: "left", lineHeight: 1, marginTop: "50px", color: "white"}}>Work Experience</h1>
               </div>
             </div>
-            <Work />
+            {work.map((ele, index) => {
+              return <Work key={index}/>
+            })}
+            <div style={{display: "flex", justifyContent: "center"}}>
+              <div style={{display: "flex", justifyContent: "center", width: "90%", gap: "20px"}}>
+                <button className='addMoreBtn' onClick={addWork}>Add Work Experience</button>
+                <button className='removeBtn' onClick={removeWork}>Delete</button>
+              </div>
+            </div>
           </div>
+
+            <div className='educationForm'>
+              <div style={{display: "flex", justifyContent: "center"}}>
+              <div style={{borderBottom: "3px solid white", width: "90%"}}>
+                  <h1 style={{fontSize: 3 + "em", textAlign: "left", lineHeight: 1, marginTop: "50px", color: "white"}}>Education</h1>
+              </div>
+            </div>
+            <Education />
+            </div>
+
         </div>
       </div>
     </>
