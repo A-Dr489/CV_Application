@@ -2,21 +2,9 @@ import './App.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export function BasicForm() {
+export function BasicForm({basicInfo, setBasicInfo}) {
     const [submited, setSubmitied] = useState(false);
-    const [basicInfo, setBasicInfo] = useState({
-        img: '',
-        imgURL: null,
-        Fname: '',
-        Lname: '',
-        email: '',
-        address: '',
-        phone: '',
-        zipCode: '',
-        city: '',
-        date: '', 
-        gender: ''
-    });
+    
     useEffect(() => {
         return () => {
             if (basicInfo.imgURL) {

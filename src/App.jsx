@@ -11,11 +11,40 @@ function App() {
   const [skills, setSkills] = useState([]);
   const [work, setWork] = useState([]);
   const [education, setEducation] = useState([]);
+  const [basicInfo, setBasicInfo] = useState({
+          img: null,
+          imgURL: null,
+          Fname: '',
+          Lname: '',
+          email: '',
+          address: '',
+          phone: '',
+          zipCode: '',
+          city: '',
+          date: '', 
+          gender: ''
+      });
 
   function addSkills() {
-    setSkills((prev) => [...prev, prev.length + 1]);
-  }
+  setSkills((prev) => [
+    ...prev,
+    {
+      id: crypto.randomUUID(),
+      skillez: '',
+      level: ''
+    }
+  ]);
+}
 
+  function updateSkill(id, newData) {
+    setSkills((prev) =>
+      prev.map((skill) =>
+        skill.id === id ? { ...skill, ...newData } : skill
+      )
+    );
+    console.log(skills);
+  }
+  
   function removeSkills() {
     if(skills.length !== 0) {
       setSkills((prevSkills) => prevSkills.slice(0, -1));
@@ -50,7 +79,7 @@ function App() {
         <div className='shape'></div>
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
           <div className='basicDiv'>
-              <BasicForm />
+              <BasicForm basicInfo={basicInfo} setBasicInfo={setBasicInfo} />
           </div>
 
             <div className='educationForm'>
@@ -76,8 +105,8 @@ function App() {
                   <h1 style={{fontSize: 3 + "em", textAlign: "left", lineHeight: 1, marginTop: "50px", color: "white"}}>Skills</h1>
               </div>
             </div>
-            {skills.map((ele, index) => {
-              return <Skills key={index} />;
+            {skills.map((ele) => {
+              return <Skills key={ele.id} id={ele.id} skillez={ele.skillez} level={ele.level} onUpdate={updateSkill} />;
             })}
             <div style={{display: "flex", justifyContent: "center"}}>
               <div style={{display: "flex", justifyContent: "center", width: "90%", gap: "20px"}}>
