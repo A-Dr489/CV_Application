@@ -10,6 +10,7 @@ function App() {
   const [position, setPosition] = useState({x: 0, y: 0});
   const [skills, setSkills] = useState([]);
   const [work, setWork] = useState([]);
+  const [education, setEducation] = useState([]);
 
   function addSkills() {
     setSkills((prev) => [...prev, prev.length + 1]);
@@ -31,6 +32,16 @@ function App() {
     }
   }
 
+  function addEducation() {
+    setEducation((prev) => [...prev, prev.length + 1]);
+  }
+
+  function removeEducation() {
+    if(education.length !== 0) {
+      setEducation((prev) => prev.slice(0, -1));
+    }
+  }
+
   return (
     <>
       <div className='daddyApp' onPointerMove={e => setPosition({x: e.clientX, y: e.clientY})}>
@@ -41,6 +52,23 @@ function App() {
           <div className='basicDiv'>
               <BasicForm />
           </div>
+
+            <div className='educationForm'>
+              <div style={{display: "flex", justifyContent: "center"}}>
+              <div style={{borderBottom: "3px solid white", width: "90%"}}>
+                  <h1 style={{fontSize: 3 + "em", textAlign: "left", lineHeight: 1, marginTop: "50px", color: "white"}}>Education</h1>
+              </div>
+            </div>
+            {education.map((ele, index) => {
+              return <Education key={index}/>
+            })}
+            <div style={{display: "flex", justifyContent: "center"}}>
+              <div style={{display: "flex", justifyContent: "center", width: "90%", gap: "20px"}}>
+                <button className='addMoreBtn' onClick={addEducation}>Add Education</button>
+                <button className='removeBtn' onClick={removeEducation}>Delete</button>
+              </div>
+            </div>
+            </div>
 
           <div className='skillsForm'>
             <div style={{display: "flex", justifyContent: "center"}}>
@@ -75,15 +103,6 @@ function App() {
               </div>
             </div>
           </div>
-
-            <div className='educationForm'>
-              <div style={{display: "flex", justifyContent: "center"}}>
-              <div style={{borderBottom: "3px solid white", width: "90%"}}>
-                  <h1 style={{fontSize: 3 + "em", textAlign: "left", lineHeight: 1, marginTop: "50px", color: "white"}}>Education</h1>
-              </div>
-            </div>
-            <Education />
-            </div>
 
         </div>
       </div>

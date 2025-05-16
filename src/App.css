@@ -57,6 +57,30 @@ body {
 
 /* BasicForm */
 
+.uploadImg {
+    background-color: rgba(0, 0, 0, 0.344);
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-width: 7px;
+    border-color: white;
+    border-style: dashed;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.uploadImg:hover {
+    scale: 1.1;
+}
+
+.uploadImg:active {
+    transition: 0.1s ease;
+    scale: 0.9;
+}
+
 .daddy-form {
     display: flex;
     flex-direction: column;

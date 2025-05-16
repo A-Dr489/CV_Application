@@ -1,9 +1,12 @@
 import './App.css';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 export function BasicForm() {
     const [submited, setSubmitied] = useState(false);
     const [basicInfo, setBasicInfo] = useState({
+        img: '',
+        imgURL: null,
         Fname: '',
         Lname: '',
         email: '',
@@ -14,6 +17,13 @@ export function BasicForm() {
         date: '', 
         gender: ''
     });
+    useEffect(() => {
+        return () => {
+            if (basicInfo.imgURL) {
+                URL.revokeObjectURL(basicInfo.imgURL);
+            }
+        };
+    }, [basicInfo.imgURL]);
 
     function handleChange(e) {
         const { id, value } = e.target;
@@ -56,6 +66,19 @@ export function BasicForm() {
         }
     }
 
+    function handleImg(e) {
+        const file = e.target.files[0];
+        setBasicInfo((prev) => {
+            if (prev.imgURL) URL.revokeObjectURL(prev.imgURL);
+            if (file?.type === 'image/png') {
+                const url = URL.createObjectURL(file);
+                return { ...prev, img: file, imgURL: url };
+            } else {
+                return { ...prev, img: '', imgURL: null };
+            }
+        });
+    }
+
     return(
      <>
         <form className='daddy-form' onSubmit={handleSubmit}>
@@ -64,7 +87,14 @@ export function BasicForm() {
             </div>
             <div className='personal-info'>
                 <div style={{display: 'flex', justifyContent: "center", alignItems: "center"}}>
-                    <div style={{backgroundColor: 'black', width: "150px", height: "150px"}}></div>
+                    <label htmlFor='uploadImg' className='uploadImg'>
+                        <label htmlFor='uploadImg' style={{cursor: "pointer", textAlign: "center", fontSize: "1.2em"}}>Upload Image</label>
+                        <input type='file' id='uploadImg' onChange={handleImg} style={{display: "none"}}></input>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-box-arrow-in-down" viewBox="0 0 16 16">
+                                <path fillRule="evenodd" d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1z"/>
+                                <path fillRule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+                            </svg>
+                    </label>
                 </div>
                 <div style={{display: "flex", flexDirection: "column", justifyContent: "center", gridColumnStart: 2, gridColumnEnd: 4, paddingRight: "25px"}}>
                     <label htmlFor='Fname'>{submited? handleFname() : "First Name*"}</label>
