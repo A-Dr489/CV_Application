@@ -1,7 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 
-export function Skills({ id, skillez, level, onUpdate }) {
+export function Skills({ id, skillez, onUpdate }) {
 
     function handleChange(e) {
         onUpdate(id, { [e.target.name]: e.target.value });

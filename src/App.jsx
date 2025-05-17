@@ -9,7 +9,6 @@ import './App.css'
 function App() {
   const [position, setPosition] = useState({x: 0, y: 0});
   const [skills, setSkills] = useState([]);
-  const [work, setWork] = useState([]);
   const [education, setEducation] = useState([]);
   const [basicInfo, setBasicInfo] = useState({
           img: null,
@@ -24,6 +23,7 @@ function App() {
           date: '', 
           gender: ''
       });
+  const [work, setWork] = useState([]);
 
   function addSkills() {
   setSkills((prev) => [
@@ -42,7 +42,6 @@ function App() {
         skill.id === id ? { ...skill, ...newData } : skill
       )
     );
-    console.log(skills);
   }
   
   function removeSkills() {
@@ -52,7 +51,42 @@ function App() {
   }
 
   function addWork() {
-    setWork((prev) => [...prev, prev.length + 1]);
+    setWork((prev) => [
+    ...prev,
+    {
+      id: crypto.randomUUID(), 
+      title: '',
+      company: '',
+      place: '',
+      startDate: '',
+      endDate: '',
+      description: ''
+    }
+   ]);
+  }
+
+  function updateWork(id, newData) {
+    setWork((prev) =>
+      prev.map((worke) =>
+        worke.id === id ? { ...worke, ...newData } : worke
+      )
+    );
+  }
+
+  function updateCheck(ez, id) {
+    if(ez) {
+      setWork((prev) =>
+      prev.map((skill) =>
+        skill.id === id ? { ...skill, endDate: "present" } : skill
+      )
+    );
+    } else {
+      setWork((prev) =>
+      prev.map((skill) =>
+        skill.id === id ? { ...skill, endDate: "" } : skill
+      )
+    );
+    }
   }
 
   function removeWork() {
@@ -106,7 +140,7 @@ function App() {
               </div>
             </div>
             {skills.map((ele) => {
-              return <Skills key={ele.id} id={ele.id} skillez={ele.skillez} level={ele.level} onUpdate={updateSkill} />;
+              return <Skills key={ele.id} id={ele.id} skillez={ele.skillez} onUpdate={updateSkill} />;
             })}
             <div style={{display: "flex", justifyContent: "center"}}>
               <div style={{display: "flex", justifyContent: "center", width: "90%", gap: "20px"}}>
@@ -122,8 +156,8 @@ function App() {
                   <h1 style={{fontSize: 3 + "em", textAlign: "left", lineHeight: 1, marginTop: "50px", color: "white"}}>Work Experience</h1>
               </div>
             </div>
-            {work.map((ele, index) => {
-              return <Work key={index}/>
+            {work.map((ele) => {
+              return <Work key={ele.id} id={ele.id} title={ele.title} company={ele.company} place={ele.place} startDate={ele.startDate} endDate={ele.endDate} description={ele.description} updateWork={updateWork} onCheek={updateCheck}/>
             })}
             <div style={{display: "flex", justifyContent: "center"}}>
               <div style={{display: "flex", justifyContent: "center", width: "90%", gap: "20px"}}>
