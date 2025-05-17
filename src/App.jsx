@@ -95,8 +95,35 @@ function App() {
     }
   }
 
+  function updateEdu(id, newData) {
+    setEducation((prev) =>
+      prev.map((edu) =>
+        edu.id == id? {...edu, ...newData} : edu
+      )
+    )
+  }
+
+  function updateCheek(ez, id) {
+    if(ez) {
+      setEducation((prev) => prev.map((edu) => edu.id == id? {...edu, endDat: "present"} : edu) );
+    } else {
+      setEducation((prev) => prev.map((edu) => edu.id == id? {...edu, endDat: ""} : edu) );
+    }
+  }
+
   function addEducation() {
-    setEducation((prev) => [...prev, prev.length + 1]);
+    setEducation((prev) => [
+    ...prev,
+    {
+      id: crypto.randomUUID(), 
+      degree: '',
+      Town: '',
+      uni: '',
+      startDat: '',
+      endDat: '',
+      Descript: ''
+    }
+   ]);
   }
 
   function removeEducation() {
@@ -122,8 +149,8 @@ function App() {
                   <h1 style={{fontSize: 3 + "em", textAlign: "left", lineHeight: 1, marginTop: "50px", color: "white"}}>Education</h1>
               </div>
             </div>
-            {education.map((ele, index) => {
-              return <Education key={index}/>
+            {education.map((ele) => {
+              return <Education key={ele.id} id={ele.id} degree={ele.degree} Town={ele.Town} uni={ele.uni} startDat={ele.startDat} endDat={ele.endDat} Descript={ele.Descript} update={updateEdu} cheek={updateCheek}/>
             })}
             <div style={{display: "flex", justifyContent: "center"}}>
               <div style={{display: "flex", justifyContent: "center", width: "90%", gap: "20px"}}>
