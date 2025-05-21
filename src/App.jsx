@@ -4,6 +4,7 @@ import { BasicForm } from './basicForm.jsx';
 import { Work } from './Work.jsx';
 import { Skills } from './Skills.jsx';
 import { Education } from './Education.jsx';
+import { Result } from './Result.jsx';
 import './App.css'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           gender: ''
       });
   const [work, setWork] = useState([]);
+  const [displayPDF, setDisplayPDF] = useState(false);
 
   function addSkills() {
   setSkills((prev) => [
@@ -191,6 +193,15 @@ function App() {
                 <button className='addMoreBtn' onClick={addWork}>Add Work Experience</button>
                 <button className='removeBtn' onClick={removeWork}>Delete</button>
               </div>
+            </div>
+          </div>
+
+          <div className='showPDF'>
+            <div style={{display: "flex", justifyContent: "center", marginTop: "20px"}}>
+              <button className='displayBtn' onClick={() => setDisplayPDF(!displayPDF)}>Display</button>
+            </div>
+            <div style={{display: "flex", justifyContent: "center", marginTop: "50px"}}>
+              {displayPDF? <Result basic={basicInfo} education={education} skills={skills} work={work}/> : <p></p>}
             </div>
           </div>
 
