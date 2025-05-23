@@ -200,7 +200,7 @@ function App() {
             <div style={{display: "flex", justifyContent: "center", marginTop: "20px"}}>
               <button className='displayBtn' onClick={() => setDisplayPDF(!displayPDF)}>Display</button>
             </div>
-            <div style={{display: "flex", justifyContent: "center", marginTop: "50px"}}>
+            <div style={{display: "flex",flexDirection: "column", alignItems: "center", marginTop: "50px"}}>
               {displayPDF? <Result basic={basicInfo} education={education} skills={skills} work={work}/> : <p></p>}
             </div>
           </div>

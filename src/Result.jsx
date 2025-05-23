@@ -1,10 +1,40 @@
+import html2canvas from 'html2canvas';
 import './App.css';
+import { useRef } from 'react';
+import { jsPDF } from "jspdf";
 
 export function Result({ basic, education, skills, work }) {
+    const print = useRef(null);
+
+    async function handleDownload() {
+        let element = print.current;
+        if(!element) {
+            return null;
+        }
+
+        let canvas = await html2canvas(element, {scale: 2});
+        let data = canvas.toDataURL("image/png");
+
+        let pdf = new jsPDF({
+            orientation: "portrait",
+            unit: "px",
+            format: "a4"
+        });
+
+        let imageProperties = pdf.getImageProperties(data);
+        let pdfWidth = pdf.internal.pageSize.getWidth();
+        let pdfHeight = (imageProperties.height * pdfWidth) / imageProperties.width
+        pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
+        if(basic.Fname == '') {
+            pdf.save("CV.pdf");
+        } else {
+            pdf.save(`${basic.Fname}CV.pdf`);
+        }
+    }
 
     return(
      <>
-        <div className='daddy-PDF'>
+        <div ref={print} className='daddy-PDF'>
             <div>
                 {basic.imgURL != null? <div className='personal'>
                     <img className='img-CV' src={basic.imgURL}></img>
@@ -72,6 +102,8 @@ export function Result({ basic, education, skills, work }) {
             </div>
             
         </div>
+        
+        <button className='displayBtn' onClick={handleDownload}>Download PDF</button>
      </>
     )
 }
